@@ -94,7 +94,7 @@ function chosenAnswer(ans) {
 
   if (ans === "true") {
     win++;
-
+    $("#result").show();
     var addImg = $("<IMG>");
     addImg.attr("SRC", "assets/images/win.gif");
     $("#img").append(addImg);
@@ -106,7 +106,7 @@ function chosenAnswer(ans) {
     $("#result").text("Correct!");
   } else {
     lose++;
-
+    $("#result").show();
     var addImg = $("<IMG>");
     addImg.attr("SRC", "assets/images/lose.gif");
     $("#img").append(addImg);
