@@ -48,7 +48,8 @@ $(document).ready(function () {
 });
 
 function gameStart() {
-  $("#result").hide();
+  $(".resultList").hide();
+  $("#result").show();
   $("#trivQA").show();
   $(".timeText").show();
   setTimer();
@@ -91,7 +92,7 @@ function populateAnswer() {
 
 //need to make this with 15 or less lines
 function chosenAnswer(ans) {
-
+  $(".resultList").show();
   if (ans === "true") {
     win++;
     $("#result").show();
@@ -138,8 +139,12 @@ function chosenAnswer(ans) {
 function endGame() {
   stop();
   index = 0;
+  win = 0;
+  lose = 0;
+  $("#result").text("I'm stumped, no more questions!");
+  $("#correctAnswer").html("Win: " + win + "<br>" + "Lose: " + lose + "<br>" + "Unanswered: " + timeOut);
   $("#trivQA").hide();
-  $("#result").html("Win: " + win + "<br>" + "Lose: " + lose + "<br>" + "Unanswered: " + timeOut);
+
   $(".start-button").text("Play Again");
   $(".start-button").show();
 };
