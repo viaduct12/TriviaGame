@@ -1,0 +1,9 @@
+body {
+  background-image: url(../images/back.jpg);
+  background-size: cover;
+}
+
+.start-text {
+  font-size: 2.5em;
+  color: seagreen;
+}

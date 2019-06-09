@@ -25,23 +25,20 @@ var placeCheck = [];
 var answersPlaced = false;
 var lose = 0;
 var win = 0;
-var time = 30;
+var time = 5; //5 secs for testing purposes
 var timeOut = 0;
 var intervalID;
 $(document).ready(function (){
 
-  $("#start").on("click", function(){
+  $(".start").on("click", function(){
     gameStart();
-    $("#start").hide();
+    $(".start").hide();
   });
 
   $(".questB").on("click", function(){
     answersPlaced = true;
-    // console.log(index + " please tell me why? " + answersPlaced);
     if(answersPlaced !== false){
-      // console.log(index + " inside if " + answersPlaced);
       var ans = $(this).val();
-      console.log(ans);
       chosenAnswer(ans);
       answersPlaced = false;
     }
@@ -51,12 +48,10 @@ $(document).ready(function (){
 });
 
 function gameStart(){
+  $(".timeText").show();
   setTimer();
-  // console.log(index + " wtf man");
   $("#questionText").text(questionHolder[index].quest);
   populateAnswer();
-  // console.log(answersPlaced + " before the call in game start " + index);
-  // console.log(answersPlaced + " after the call in game start " + index);  
   $(".questB").show();
 }
 
@@ -66,7 +61,6 @@ function getRandom(){
   while(placeCheck.indexOf(x) === -1){
     placeCheck.push(x);
   }
-  // console.log(placeCheck.length + " length");
 }
 
 function populateAnswer(){
@@ -76,7 +70,7 @@ function populateAnswer(){
     getRandom();
   }
 
-  for(var i = 0; i < 4; i++){
+  for(var i = 0; i < questionHolder.length; i++){
     // console.log(placeCheck + " inside of loop");
     if (placeCheck[placeCheck.length - 1] !== 0){
       numberForDays = placeCheck.pop();
@@ -97,24 +91,63 @@ function chosenAnswer(ans){
   console.log("answer choice " + (ans === "true"));
   if(ans === "true"){
     win++;
+    
+    $("#trivQA").hide();
+    stop();
+    time = 5;
+    
+    $("#result").text("Correct!");
   } else {
     lose++;
+    
+    $("#trivQA").hide();
+    stop();
+    time = 5;
+    
+    $("#result").text("Wrong!");
+    $("#correctAnswer").text("The correct answer is: " + questionHolder[index].a[0]);
   }
-  // console.log("am i here? "); 
-  index++;
-  if(index < 4){
-    gameStart();
-  }
+  
+  //display visuals before i index++
+  setTimeout(function(){
+    $("#trivQA").show();
+    $("#result").empty();
+    $("#correctAnswer").empty();
+    setTimer();
+    index++;
+    if(index < questionHolder.length){
+      gameStart();
+    } else {
+      endGame();
+    }
+  }, 5000);
 }
 
+function endGame(){
+  stop();
+  $("#trivQA").hide();
+  $("#result").html("Win: " + win + "<br>" + "Lose: " + lose + "<br>" + "Unanswered: " + timeOut);
+};
+
+//timer functions
 function decrement(){
-  $("#time").html("<h2>" + --time + "</h2>");
+  $("#time").text("Time Remaining: " + --time + " seconds");
   if (time === 0){
     stop();
     timeOut++;
-    index++;
-    $("#time").html("<h2>Times Up!</h2>");
-    softReset();
+    $("#time").text("Times Up!");
+    setTimeout(function(){
+      $("#correctAnswer").text("The correct answer is: " + questionHolder[index].a[0]);
+    }, 1000);
+    setTimeout(function(){
+      index++;
+      $("#correctAnswer").empty();
+      softReset();
+    },3000);
+  }
+  
+  if (index === questionHolder.length){
+    endGame();
   }
 }
 
@@ -128,6 +161,6 @@ function setTimer(){
 }
 
 function softReset(){
-  time = 30;
+  time = 5;
   gameStart();
 }
