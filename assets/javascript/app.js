@@ -139,12 +139,12 @@ function chosenAnswer(ans) {
 function endGame() {
   stop();
   index = 0;
-  win = 0;
-  lose = 0;
   $("#result").text("I'm stumped, no more questions!");
   $("#correctAnswer").html("Win: " + win + "<br>" + "Lose: " + lose + "<br>" + "Unanswered: " + timeOut);
   $("#trivQA").hide();
-
+  
+  win = 0;
+  lose = 0;
   $(".start-button").text("Play Again");
   $(".start-button").show();
 };
