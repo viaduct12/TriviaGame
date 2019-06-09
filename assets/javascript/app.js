@@ -48,6 +48,7 @@ $(document).ready(function () {
 });
 
 function gameStart() {
+  $("#result").hide();
   $("#trivQA").show();
   $(".timeText").show();
   setTimer();
@@ -192,3 +193,5 @@ function softReset() {
 //store object into questionHolder array
 //show the play again button
 //if no do nothing
+
+//question randomizer. think i might convert my other random number generator for questions also
