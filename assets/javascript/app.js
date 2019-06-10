@@ -25,7 +25,7 @@ var placeCheck = [];
 var answersPlaced = false;
 var lose = 0;
 var win = 0;
-var time = 30; //5 secs for testing purposes
+var time = 5; //5 secs for testing purposes
 var timeOut = 0;
 var intervalID;
 $(document).ready(function () {
@@ -102,7 +102,7 @@ function chosenAnswer(ans) {
 
     $("#trivQA").hide();
     stop();
-    time = 30;
+    time = 5;
 
     $("#result").text("Correct!");
   } else {
@@ -114,7 +114,7 @@ function chosenAnswer(ans) {
 
     $("#trivQA").hide();
     stop();
-    time = 30;
+    time = 5;
 
     $("#result").text("Wrong!");
     $("#correctAnswer").text("The correct answer is: " + questionHolder[index].a[0]);
@@ -155,6 +155,7 @@ function decrement() {
   if (time === 0) {
     stop();
     $("#trivQA").hide();
+    $(".resultList").show();
     timeOut++;
     $("#time").text("Times Up!");
     setTimeout(function () {
@@ -182,7 +183,7 @@ function setTimer() {
 }
 
 function softReset() {
-  time = 30;
+  time = 5;
   $("#trivQA").show();
   gameStart();
 }
